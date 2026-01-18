@@ -11,8 +11,8 @@ This repository contains code for analyzing LLM generalization across difficulty
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Cross-Difficulty-Generalization.git
-cd Cross-Difficulty-Generalization
+git clone https://github.com/BatsResearch/cross-difficulty.git
+cd cross-difficulty
 ```
 
 2. Create and activate the conda environment:
