@@ -5,4 +5,79 @@
     <a href="https://huggingface.co/datasets/BatsResearch/Cross-Difficulty"><img src="https://img.shields.io/badge/datasets-Cross--Difficulty-FFD21E?logo=huggingface" /></a>
 </p>
 
-Analysis of LLM generalization across difficulty levels using Item Response Theory
+This repository contains code for analyzing LLM generalization across difficulty levels, as described in the paper ["Revisiting Generalization Across Difficulty Levels: It's Not So Easy"](https://arxiv.org/abs/2511.21692).
+
+## Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/Cross-Difficulty-Generalization.git
+cd Cross-Difficulty-Generalization
+```
+
+2. Create and activate the conda environment:
+```bash
+conda env create -f config/vllm-environment.yml
+conda activate easy2hard-vllm
+```
+
+3. This project uses the [LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) for evaluation.
+
+### Setting Up LM Evaluation Harness
+
+1. Clone and install the LM Evaluation Harness separately:
+```bash
+git clone https://github.com/EleutherAI/lm-evaluation-harness.git
+cd lm-evaluation-harness
+pip install -e .
+```
+
+2. Copy the evaluation tasks from this project to the LM Evaluation Harness:
+```bash
+cp -r /path/to/Cross-Difficulty-Generalization/tasks/* /path/to/lm-evaluation-harness/lm_eval/tasks/
+```
+
+
+## Usage
+
+### Training and Evaluation
+
+The main training script handles training, model conversion, and evaluation in a single pipeline.
+
+1. Configure the scripts by adding your paths and settings in scripts provided in scripts directory.
+
+2. Run the pipeline:
+```bash
+bash scripts/sft_b200.sh
+```
+
+This script will:
+- Train models on specified difficulty bins
+- Convert checkpoints from DeepSpeed ZeRO format to standard PyTorch format
+- Run evaluation using LM Eval Harness
+
+### Zero-Shot Evaluation
+
+To run zero-shot evaluation without training:
+
+1. Configure the script by editing `scripts/run-zero-shot-eval-vllm_b200.sh` to set the appropriate model paths and output directories.
+
+2. Run zero-shot evaluation:
+```bash
+bash scripts/run-zero-shot-eval-vllm_b200.sh
+```
+
+## Citation
+
+```bibtex
+
+@misc{kordi2025revisitinggeneralizationdifficultylevels,
+      title={Revisiting Generalization Across Difficulty Levels: It's Not So Easy},
+      author={Yeganeh Kordi and Nihal V. Nayak and Max Zuo and Ilana Nguyen and Stephen H. Bach},
+      year={2025},
+      eprint={2511.21692},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2511.21692},
+}
+```

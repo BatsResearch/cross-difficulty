@@ -1,0 +1,31 @@
+task: cross_difficulty_mmlu_pro
+dataset_path: Yeganeh/Cross-Difficulty
+dataset_name: mmlu_pro
+test_split: train
+description: ""
+output_type: generate_until
+doc_to_text: !function utils.mmlu_pro_doc_to_text
+doc_to_target: answer
+filter_list:
+  - name: "custom-extract"
+    filter:
+      - function: "regex"
+        regex_pattern: '([A-J])'
+        # regex_pattern: r".*[aA]nswer:\s*([A-J])",
+      - function: "take_first"
+generation_kwargs:
+  until:
+    - "</s>"
+    - "Q:"
+    - "<|im_end|>"
+  max_gen_toks: 2048
+  do_sample: false
+  temperature: 0.0
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+    ignore_case: true
+    ignore_punctuation: true
+metadata:
+  version: 2.1

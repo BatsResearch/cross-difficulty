@@ -1,0 +1,14 @@
+task: cross_difficulty_musr
+dataset_path: Yeganeh/Cross-Difficulty
+dataset_name: musr
+test_split: train
+output_type: multiple_choice
+doc_to_text: !function utils.musr_doc_to_text
+doc_to_target: "{{answer}}"
+doc_to_choice: "{{options}}"
+metric_list:
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

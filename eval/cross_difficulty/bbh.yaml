@@ -1,0 +1,14 @@
+group: cross_difficulty_bbh
+task:
+  - cross_difficulty_bbh_boolean
+  - cross_difficulty_bbh_multichoice
+  - cross_difficulty_bbh_yesno
+  - cross_difficulty_bbh_numeric
+  - cross_difficulty_bbh_valid_invalid
+aggregate_metric_list:
+  - metric: exact_match
+    aggregation: mean
+    weight_by_size: true
+    filter_list: strict-match
+metadata:
+  version: 1.0
